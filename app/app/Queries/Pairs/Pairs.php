@@ -115,7 +115,8 @@ class Pairs
 SELECT pair, AVG(high - History.low) AS AVERAGE1m, from_unixtime(time,"%Y-%m-%d %h") AS day_time
 FROM History
 WHERE time >= :start_time AND time <= :end_time
-GROUP BY pair, day_time;
+GROUP BY pair, day_time
+ORDER BY day_time ASC;
 SQL;
 
         $data = DB::select($sql, [
@@ -125,21 +126,10 @@ SQL;
 
         $seriesTemp = $categories = [];
         foreach ($data as $datum) {
-//            var_dump([
-//                $datum->day_time,
-//                $datum->day_time. ':00:00',
-//                strtotime($datum->day_time. ':00:00'),
-//                date('m d H', strtotime($datum->day_time. ':00:00')),
-//                date('m d H', strtotime($datum->day_time))
-//            ]);
-//            die();
             $dayTime = date('m.d H', strtotime($datum->day_time. ':00:00'));
             $seriesTemp[$datum->pair][] = (float)$datum->AVERAGE1m;
             $categories[$dayTime] = $dayTime;
         }
-
-//        var_dump($categories);
-//        die();
 
         $this->quotesSeries = array_map(function ($name, $data) {
             return [
