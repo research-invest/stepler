@@ -31,7 +31,7 @@ services:
       - net
 
   app-mysql:
-    image: mysql
+    image: mysql:5.7.36
     container_name: app-mysql
     restart: always
     environment:
