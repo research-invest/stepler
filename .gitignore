@@ -1,0 +1,8 @@
+/db
+/.idea
+/docker/logs
+/docker/data
+Homestead.json
+Homestead.yaml
+.env
+.phpunit.result.cache

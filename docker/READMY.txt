@@ -1,0 +1,1 @@
+docker exec -i app-mysql sh -c 'exec mysql -uroot -proot b13766_hermanos' < /Volumes/work/trading/stepler/db/History.sql
